@@ -1,0 +1,65 @@
+
+<template>
+  <a-breadcrumb>
+    <a-breadcrumb-item
+      v-for="(item,index) in levelList"
+      :key="item.path"
+    >
+      <span
+        v-if="index==levelList.length-1"
+        class="no-redirect"
+      >{{ $t(`menu.${item.meta.title}`) }} </span>
+      <a
+        v-else
+        @click.prevent="handleLink(item)"
+      >{{ $t(`menu.${item.meta.title}`) }}</a>
+    </a-breadcrumb-item>
+  </a-breadcrumb>
+</template>
+
+<script lang="ts">
+  import pathToRegexp from 'path-to-regexp'
+  import { Vue, Component, Watch } from 'vue-property-decorator'
+  import { Breadcrumb } from 'ant-design-vue'
+  @Component({
+    components: {
+      'a-breadcrumb': Breadcrumb,
+      'a-breadcrumb-item': Breadcrumb.Item
+    }
+  })
+  export default class BreadCrumb extends Vue {
+      private levelList:any
+      created() {
+        this.getBreadcrumb()
+      }
+      @Watch('$route')
+      onRouteChange(value:any) {
+          this.getBreadcrumb()
+      }
+      getBreadcrumb() {
+        let matched:any = this.$route.matched.filter(item => item.name)
+        const first = matched[0]
+        if (first && first.name !== 'dashBoard') {
+          matched = [{ path: '/dashboard', meta: { title: 'dashboard' }}].concat(matched)
+        }
+        this.levelList = matched.filter((item:any) => item.meta && item.meta.title && item.meta.breadcrumb !== false)
+      }
+      pathCompile(path:string) {
+        // To solve this problem https://github.com/PanJiaChen/vue-element-admin/issues/561
+        const { params } = this.$route
+        var toPath = pathToRegexp.compile(path)
+        return toPath(params)
+      }
+      handleLink(item:any) {
+        const { redirect, path } = item
+        if (redirect) {
+          this.$router.push(redirect)
+          return
+        }
+        this.$router.push(this.pathCompile(path))
+      }
+  }
+</script>
+
+<style scoped>
+</style>

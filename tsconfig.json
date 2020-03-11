@@ -1,4 +1,5 @@
 {
+  "compileOnSave": false, 
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
@@ -9,7 +10,7 @@
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "baseUrl": ".",
     "types": [
       "webpack-env"
