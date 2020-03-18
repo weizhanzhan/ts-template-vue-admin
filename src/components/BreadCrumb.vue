@@ -62,4 +62,8 @@
 </script>
 
 <style scoped>
+.no-redirect {
+  color: #97a8be;
+  cursor: text;
+}
 </style>

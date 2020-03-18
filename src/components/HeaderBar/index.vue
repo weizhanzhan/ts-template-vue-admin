@@ -44,5 +44,45 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss">
+
+.ant-dropdown:before {
+  //为了解决 无法点击自定义的东西
+  z-index: -1;
+}
+.header{
+  position: relative;
+  .header-left{
+    padding-left: 24px;
+    .head-bread{
+      position: absolute;
+      top: 22px;
+      left: 60px;
+    }
+  }
+  .menu{
+    position: absolute;
+    right: 0;
+    top: 0;
+    list-style: none;
+    li{
+       display: inline-block;
+       text-align: center;
+      //  padding: 0 20px;
+      // width: 100px;
+        &:hover{
+          background: #fafafa
+        }
+    }
+    .user{
+      min-width: 100px;
+    }
+    .theme{
+      width: 50px;
+    }
+    .lang{
+      width: 50px;
+    }
+  }
+}
 </style>

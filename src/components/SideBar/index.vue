@@ -55,7 +55,6 @@
     @Prop({ default: 'dark' })theme!:string
     @Prop()collapsed!:Boolean
     @Getter('routes') public routes!: any
-
     @Watch('$route')
     onRouterChange(val:any) {
       this.openKeys = [val.matched[0].name]
