@@ -1,6 +1,11 @@
 export default {
     menu: {
+      home: '首页',
       dashboard: '仪表盘',
+      workplace: '工作台',
+      analysis: '分析页',
+      customer: '客户',
+      datasheets: '数据列表',
       component: '组件',
       antdComponent: 'Antd 组件',
       account: '个人中心',
@@ -14,4 +19,4 @@ export default {
       chart: 'Chart'
     }
   }
-  
+

@@ -6,6 +6,8 @@ import Zh from './assets/lang/zh'
 import En from './assets/lang/en'
 import VueI18n from 'vue-i18n'
 import './assets/style/global.scss'
+import './utils/antd'
+import './permission'
 Vue.config.productionTip = false
 Vue.use(VueI18n)
 const i18n = new VueI18n({

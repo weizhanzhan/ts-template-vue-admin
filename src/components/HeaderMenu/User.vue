@@ -6,7 +6,7 @@
           :src="user.avatar"
           :size="23"
         />
-        <span class="user_name">&nbsp;&nbsp;{{ user.name }}</span>
+        <span class="user_name">{{ user.name }}</span>
       </span>
     </div>
     <a-menu
@@ -63,5 +63,19 @@
 </script>
 
 <style lang="scss" scoped>
-
+ .menu-icon {
+    text-align: center;
+    padding: 0 10px;
+    .menu-icon-item {
+      color: var(--PC);
+      font-size: 20px;
+    }
+    .user_name {
+      font-weight: bold;
+      padding-left: 12px;
+    }
+  }
+  .menu-icon:hover {
+    background: rgba(0, 0, 0, 0.025);
+  }
 </style>

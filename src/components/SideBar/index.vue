@@ -2,9 +2,7 @@
 <template>
   <div>
     <div :class="['logo',theme+'_bg']">
-      <img
-        src="/ico.png"
-      >
+      <img src="/ico.png">
       <span :class="['logo_text',theme,collapsed?'hide':'show']">Vue Admin</span>
     </div>
     <a-menu
@@ -14,15 +12,15 @@
       :open-keys="openKeys"
       :selected-keys="[$route.name]"
       :inline-collapsed="collapsed"
-      @click="menuClick"
+      @click="handleMenuClick"
       @openChange="handleOpenChange"
     >
-      <template v-for="item in handleRoutes(routes)">
+      <template v-for="item in handleRoutes(filterByRoleAddedRoutes)">
         <a-menu-item
           v-if="!item.children"
           :key="item.name"
         >
-          <a-icon type="pie-chart" />
+          <a-icon type="smile" />
           <span>{{ $t(`menu.${ item.meta.title}`) }}</span>
         </a-menu-item>
         <sub-menu
@@ -42,12 +40,12 @@
   import { Menu, Icon } from 'ant-design-vue'
   @Component({
     components: {
-        SubMenu,
-        'a-menu': Menu,
-        'a-submenu': Menu.SubMenu,
-        'a-menu-item-group': Menu.ItemGroup,
-        'a-menu-item': Menu.Item,
-        'a-icon': Icon
+      'a-menu': Menu,
+      'a-submenu': Menu.SubMenu,
+      'a-menu-item-group': Menu.ItemGroup,
+      'a-menu-item': Menu.Item,
+      'a-icon': Icon,
+      'sub-menu': SubMenu
     }
   })
   export default class Template extends Vue {
@@ -55,11 +53,17 @@
     @Prop({ default: 'dark' })theme!:string
     @Prop()collapsed!:Boolean
     @Getter('routes') public routes!: any
+    @Getter('addRoutes') public filterByRoleAddedRoutes!: Array<any>
     @Watch('$route')
-    onRouterChange(val:any) {
-      this.openKeys = [val.matched[0].name]
+    onRouterChange() :void {
+      this.handleMenuOpenedKeys()
     }
-
+    mounted() :void {
+      this.handleMenuOpenedKeys()
+    }
+    handleMenuOpenedKeys():void{
+      this.openKeys = [this.$route.matched[0].name]
+    }
     handleOpenChange(openKeys:Array<any>) {
       let keys
       if (openKeys.length > 1) {
@@ -75,8 +79,8 @@
         this.openKeys = openKeys
       }
     }
-    menuClick({ key }:any) {
-      this.$router.push({ name: key })
+    handleMenuClick(route:any) :void {
+      this.$router.push({ name: route.key })
     }
     /**
      * 过滤菜单，把hidden的去掉，把children只有一个 覆盖父级路由 显示单级菜单
@@ -99,5 +103,36 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  .logo {
+    height: 32px;
+    margin: 16px;
+    color: #fff;
+    padding-left: 10px;
+    padding-top: 3px;
+    .logo_text{
+      font-size: 18px;
+      font-weight: 700;
+      vertical-align: top;
+      padding-left: 10px
+    }
+    .logo_text.dark{
+      color: #ffffff
+    }
+    .logo_text.light{
+      color: var(--PC)
+    }
+    .show{
+      opacity: 1;
+      transition: opacity 0.5s ease-in
+    }
+    .hide{ opacity: 0;}
+    img {
+      width: 25px;
+      height: 25px;
+    }
+  }
+  .light_bg{
+    background: var(--PCL)
+  }
 </style>

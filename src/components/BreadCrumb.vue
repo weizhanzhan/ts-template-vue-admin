@@ -6,7 +6,7 @@
       :key="item.path"
     >
       <span
-        v-if="index==levelList.length-1"
+        v-if="index!==0"
         class="no-redirect"
       >{{ $t(`menu.${item.meta.title}`) }} </span>
       <a
@@ -28,19 +28,19 @@
     }
   })
   export default class BreadCrumb extends Vue {
-      private levelList:any
+      levelList:any = []
       created() {
         this.getBreadcrumb()
       }
       @Watch('$route')
-      onRouteChange(value:any) {
-          this.getBreadcrumb()
+      onRouteChange() {
+        this.getBreadcrumb()
       }
       getBreadcrumb() {
         let matched:any = this.$route.matched.filter(item => item.name)
         const first = matched[0]
-        if (first && first.name !== 'dashBoard') {
-          matched = [{ path: '/dashboard', meta: { title: 'dashboard' }}].concat(matched)
+        if (first && first.name !== 'dashboard') {
+          matched = [{ path: '/dashboard', meta: { title: 'home' }}].concat(matched)
         }
         this.levelList = matched.filter((item:any) => item.meta && item.meta.title && item.meta.breadcrumb !== false)
       }
@@ -56,7 +56,9 @@
           this.$router.push(redirect)
           return
         }
-        this.$router.push(this.pathCompile(path))
+        // console.log(this.pathCompile(path))
+        // this.$router.push(this.pathCompile(path))
+        this.$router.push(path)
       }
   }
 </script>

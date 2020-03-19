@@ -1,6 +1,11 @@
 export default {
     menu: {
+      home: 'Home',
       dashboard: 'Dashborad',
+      workplace: 'Workplace',
+      analysis: 'Analysis',
+      customer: 'Customer',
+      datasheets: 'Datasheets',
       component: 'Components',
       antdComponent: 'Antd Components',
       account: 'Personal center',

@@ -7,17 +7,17 @@
         :type="collapsed ? 'menu-unfold' : 'menu-fold'"
         @click="changeCollapsed"
       />
-      <breadCrumb class="head-bread" />
+      <bread-crumb class="head-bread" />
     </div>
     <ul class="menu">
       <li class="user">
-        <UserConfig />
+        <user-menu />
       </li>
       <li class="theme">
-        <ThemeConfig v-on="$listeners" />
+        <theme-menu v-on="$listeners" />
       </li>
       <li class="lang">
-        <LangConfig />
+        <lang-menu />
       </li>
     </ul>
   </header>
@@ -25,15 +25,18 @@
 
 <script lang="ts">
   import BreadCrumb from '../BreadCrumb.vue'
-  import UserConfig from '../Config/User.vue'
-  import ThemeConfig from '../Config/Theme.vue'
-  import LangConfig from '../Config/Lang.vue'
+  import UserMenu from '../HeaderMenu/User.vue'
+  import ThemeMenu from '../HeaderMenu/Theme.vue'
+  import LangMenu from '../HeaderMenu/Lang.vue'
   import { Icon } from 'ant-design-vue'
   import { Vue, Component, Prop } from 'vue-property-decorator'
   @Component({
     components: {
-        BreadCrumb, UserConfig, ThemeConfig, LangConfig,
-        'a-icon': Icon
+      'a-icon': Icon,
+      'bread-crumb': BreadCrumb,
+      'user-menu': UserMenu,
+      'theme-menu': ThemeMenu,
+      'lang-menu': LangMenu
     }
   })
   export default class Template extends Vue {
@@ -52,11 +55,21 @@
 }
 .header{
   position: relative;
+  box-shadow: 0 1px 4px rgba(0,21,41,.08);
   .header-left{
     padding-left: 24px;
+    .trigger {
+      font-size: 18px;
+      line-height: 64px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .trigger:hover {
+      color: #1890ff;
+    }
     .head-bread{
       position: absolute;
-      top: 22px;
+      top: 20px;
       left: 60px;
     }
   }
@@ -66,23 +79,15 @@
     top: 0;
     list-style: none;
     li{
-       display: inline-block;
-       text-align: center;
-      //  padding: 0 20px;
-      // width: 100px;
-        &:hover{
-          background: #fafafa
-        }
+      display: inline-block;
+      text-align: center;
+      &:hover{ background: #fafafa  }
     }
     .user{
       min-width: 100px;
     }
-    .theme{
-      width: 50px;
-    }
-    .lang{
-      width: 50px;
-    }
+    .theme{ width: 50px; }
+    .lang{  width: 50px; }
   }
 }
 </style>

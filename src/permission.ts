@@ -12,6 +12,7 @@ function hasPermission(roles:Array<string>, permissionRoles:Array<string>) {
 }
 
 router.beforeEach((to, from, next) => {
+  console.log(store.getters.addRoutes)
   if (getToken()) {
     if (whiteList.indexOf(to.path) !== -1) {
       next()
@@ -31,14 +32,12 @@ router.beforeEach((to, from, next) => {
             })
         })
       } else {
-        if (hasPermission(store.getters.roles, to.meta.roles)) { // 当如果一个角色登录过后，再次有登录的话回去再次验证该角色是否有权限进入该路由
+         // 当如果一个角色登录过后，再次有登录的话回去再次验证该角色是否有权限进入该路由
+        if (hasPermission(store.getters.roles, to.meta.roles)) {
           next()
         } else {
           message.error('你没有权限')
           next({ path: '/login', replace: true, query: {}})
-        //   next({
-        //     path: '/login',  query: { noGoBack: true },replace: true, params:{}
-        //   })
         }
       }
     }
