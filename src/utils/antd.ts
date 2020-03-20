@@ -4,9 +4,9 @@ import WxContainer from '../components/Container/index.vue'
 import { message } from 'ant-design-vue'
 
 const selfComponent = [
-    WxContainer
+    { name: 'wx-container', component: WxContainer }
 ]
-selfComponent.forEach(component => {
-    Vue.component(component.name, component)
+selfComponent.forEach(item => {
+    Vue.component(item.name, item.component)
 })
 Vue.prototype.$message = message
