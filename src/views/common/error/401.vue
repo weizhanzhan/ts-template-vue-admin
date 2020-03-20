@@ -1,6 +1,9 @@
 <template>
   <div>
     Error401
+    <button @click="$router.push('/')">
+      返回首页
+    </button>
   </div>
 </template>
 

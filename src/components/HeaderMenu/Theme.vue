@@ -1,6 +1,5 @@
 <template>
   <a-dropdown
-    v-model="visible"
     overlay-class-name="theme-config"
   >
     <div class="menu-icon">
@@ -11,9 +10,7 @@
         />
       </span>
     </div>
-    <div
-      slot="overlay"
-    >
+    <div slot="overlay">
       <div class="w_theme_select">
         <h3 class="w_theme_select_title">
           Theme Color
@@ -48,7 +45,7 @@
   </a-dropdown>
 </template>
 <script lang="ts">
-// import { updateTheme } from '../../../../../utils/common.js'
+  import { updateTheme } from '../../utils/common'
   import { Vue, Component } from 'vue-property-decorator'
   import { Dropdown, Menu, Avatar, Icon, Switch } from 'ant-design-vue'
   @Component({
@@ -64,19 +61,27 @@
   })
   export default class ThemeConfig extends Vue {
     colors:Array<string> = ['#F5222D', '#FA541C', '#FAAD14', '#13C2C2', '#52C41A', '#1890FF', '#2F54E8', '#722ED1']
-    themeTigger:Boolean = true
     activeTheme:string = '#2F54E8'
-    visible:Boolean = false
-
     changeTheme(color:string) {
       this.activeTheme = color
-      // updateTheme(color)
+      localStorage.setItem('local_theme', color)
+      updateTheme(color)
+    }
+
+    mounted() {
+      const init_theme = localStorage.getItem('local_theme')
+      this.activeTheme = (init_theme || '#2F54E8')
+      updateTheme(this.activeTheme)
     }
     changeMenuTheme(val:Boolean) { this.$emit('changeLeftBar', val) }
   }
 </script>
 
 <style lang="scss" scoped>
+.ant-dropdown:before {
+  //为了解决 无法点击自定义的东西
+  z-index: -1;
+}
  .w_theme_select {
    width: 130px;
    height: 170px;

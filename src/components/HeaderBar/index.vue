@@ -49,10 +49,6 @@
 
 <style lang="scss">
 
-.ant-dropdown:before {
-  //为了解决 无法点击自定义的东西
-  z-index: -1;
-}
 .header{
   position: relative;
   box-shadow: 0 1px 4px rgba(0,21,41,.08);
