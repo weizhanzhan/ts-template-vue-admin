@@ -84,6 +84,7 @@
       e.preventDefault()
       this.form.validateFields((err:any, values:object) => {
         if (!err) {
+          this.loading = true
           this.$store.dispatch('LoginByUsername', values)
           .then(() => {
             this.loading = false
