@@ -1,6 +1,7 @@
 # antd-template
 vue typescript 后台模板
 浏览查看顶部链接😄
+账号密码随便输入
 ## Project setup
 ```
 yarn install
